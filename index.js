@@ -6,6 +6,9 @@ const { v4: uuidv4 } = require('uuid');
 const NodeSSH = require('node-ssh');
 const ssh = new NodeSSH();
 
+var Datastore = require('nedb'),
+  db = new Datastore();
+
 const password = 'raspberry';
 
 var app = express();
@@ -39,6 +42,12 @@ app.post('/exec', async function(req, res) {
   // exec(`ssh -tt pi@192.168.2.78 "cd /opt/ && sudo touch ${uuidv4()}"`, (err, stdout, stderr) => {
   //   res.send({ output: stdout });
   // });
+});
+
+app.post('/bookmark/save', async (req, res, next) => {
+  // db.insert({name: req.body.name, url: req.body.url, category: req.body.category}, )
+  res.status(500).send({ error: true });
+  // res.send([req.body.name, req.body.url, req.body.category]);
 });
 
 app.listen(3000, () => {
